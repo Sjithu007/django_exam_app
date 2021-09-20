@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'exams/main.js' %}" defer></script> 
+{% endblock scripts %}
+
+{% block title %}
+Exams
+{% endblock title %}
+
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="examStartModal" tabindex="-1" aria-labelledby="examModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Start Exam</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="start-button">Start Exam</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h3 py-4">Exams</div>
+<div class="py-4">
+  <div class="row gap-3">
+    {% for obj in object_list %}
+    <div class="col-sm-4">
+      <div style="border-radius: 12px" class="card p-1 border-light shadow-sm bg-white">
+        <div class="card-body">
+          <h5 class="card-title">{{obj.exam_name}}</h5>
+          <div class="card-text mb-3">
+            <small>Exam ID: <b>{{obj.pk}}</b></small><br>
+            <small>Semester: <b>{{obj.semester}}</b></small><br>
+            <small>Duration: <b>{{obj.duration}}</b> minutes</small>
+          </div>
+          <div class="d-grid">
+            <button
+              class="btn btn-primary modal-button"
+              data-bs-pk="{{obj.pk}}"
+              data-bs-exam="{{obj.exam_name}}"
+              data-bs-questions="{{obj.total_questions}}"
+              data-bs-duration="{{obj.duration}}"
+              data-bs-pass = "{{obj.pass_mark}}"
+              data-bs-toggle="modal"
+              data-bs-target="#examStartModal"
+              >
+              Start Exam
+            </button>
+        </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock content %}
