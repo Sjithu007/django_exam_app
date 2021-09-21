@@ -9,16 +9,18 @@ modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
     const pk = btn.getAttribute('data-bs-pk')
     const name = btn.getAttribute('data-bs-exam')
     const numQuestions = btn.getAttribute('data-bs-questions')
+    const totalMarks = btn.getAttribute('data-bs-marks')
     const scoreToPass = btn.getAttribute('data-bs-pass')
     const duration = btn.getAttribute('data-bs-duration')
 
     modalBody.innerHTML += `
-        <div class="mb-3">Are you sure you want to begin "<b>${name}</b>" exam?</div>
-        <div class="text-muted">
+        <div class="mb-3">Are you sure you want to begin <b>${name}</b> exam?</div>
+        <div class="lead text-small">
             <ul>
                 <li>Number of questions: <b>${numQuestions}</b></li>
+                <li>Total Marks: <b>${totalMarks}</b></li>
                 <li>Pass Mark: <b>${scoreToPass}</b></li>
-                <li>Duration: <b>${duration} min</b></li>
+                <li>Duration: <b>${duration} minutes</b></li>
             </ul>
         </div>
     `
