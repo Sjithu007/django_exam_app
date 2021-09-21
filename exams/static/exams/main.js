@@ -4,13 +4,13 @@ const startBtn = document.getElementById('start-button')
 
 const url = window.location.href
 
-modalBtns.forEach(modalBtn=> modalBtn.addEventListener('click', ()=>{
+modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
 
-    const pk = modalBtn.getAttribute('data-bs-pk')
-    const name = modalBtn.getAttribute('data-bs-exam')
-    const numQuestions = modalBtn.getAttribute('data-bs-questions')
-    const scoreToPass = modalBtn.getAttribute('data-bs-pass')
-    const duration = modalBtn.getAttribute('data-bs-duration')
+    const pk = btn.getAttribute('data-bs-pk')
+    const name = btn.getAttribute('data-bs-exam')
+    const numQuestions = btn.getAttribute('data-bs-questions')
+    const scoreToPass = btn.getAttribute('data-bs-pass')
+    const duration = btn.getAttribute('data-bs-duration')
 
     modalBody.innerHTML += `
         <div class="mb-3">Are you sure you want to begin "<b>${name}</b>" exam?</div>

@@ -103,10 +103,9 @@ const sendData = () => {
         data: data,
         success: function(response){
             const results = response.results
-            console.log(results)
             examForm.classList.add('not-visible')
 
-            scoreBox.innerHTML = `<h2 class="lead">${response.passed ? 'Congratulations! ' : 'Sorry :( '}Your result is ${response.score.toFixed(2)}%</h2>`
+            scoreBox.innerHTML = `<h1 class="h1 lead">${response.passed ? 'Congratulations! ' : 'Sorry :( '}Your result is ${response.score.toFixed(2)}%</h1>`
 
             results.forEach(res=>{
                 const resDiv = document.createElement("div")

@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% load static %}
 
+{% load static %}
 {% block scripts %}
-    <script src="{% static 'exams/main.js' %}" defer></script> 
+<script src="{% static 'exams/main.js' %}" defer></script>
 {% endblock scripts %}
 
-{% block title %}
-Exams
-{% endblock title %}
+{% block title %} Exams {% endblock title %}
 
 {% block content %}
+
 
 <!-- Modal -->
 <div class="modal fade" id="examStartModal" tabindex="-1" aria-labelledby="examModalLabel" aria-hidden="true">
@@ -28,37 +27,54 @@ Exams
   </div>
 </div>
 
-<div class="h3 py-4">Exams</div>
-<div class="py-4">
+
+<nav class="navbar sticky-top navbar-light bg-white shadow-sm" style="border-radius: 12px">
+  <div class="container-fluid px-4 py-2">
+    <h3>Exam App</h3>
+    <div class="d-flex">
+      {% if user.is_authenticated %}
+      <h6><a class="btn btn-link" href="{% url 'logout'%}">Logout</a></h6>
+      {% else %}
+      <h6><a class="btn btn-link" href="{% url 'register'%}">Register</a></h6>
+      <h6><a class="btn btn-link" href="{% url 'login'%}">Login</a></h6>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+<div class="mt-5">
+  {% if user.is_authenticated %}
+    <h6 class="lead">Hello, User 👋</h6>
+  {% endif %}
+</div>
+<div class="py-5">
   <div class="row gap-3">
     {% for obj in object_list %}
     <div class="col-sm-4">
-      <div style="border-radius: 12px" class="card p-1 border-light shadow-sm bg-white">
+      <div style="border-radius: 12px" class="card p-1 border-light shadow-sm bg-primary text-white">
         <div class="card-body">
-          <h5 class="card-title">{{obj.exam_name}}</h5>
+          <h3 class="card-title">{{obj.exam_name}}</h3>
           <div class="card-text mb-3">
             <small>Exam ID: <b>{{obj.pk}}</b></small><br>
             <small>Semester: <b>{{obj.semester}}</b></small><br>
-            <small>Duration: <b>{{obj.duration}}</b> minutes</small>
+            <small>Duration: <b>{{obj.duration}}</b> minutes</small><br>
           </div>
           <div class="d-grid">
-            <button
-              class="btn btn-primary modal-button"
+            <button 
+              class="btn btn-light modal-button"
               data-bs-pk="{{obj.pk}}"
               data-bs-exam="{{obj.exam_name}}"
               data-bs-questions="{{obj.total_questions}}"
               data-bs-duration="{{obj.duration}}"
-              data-bs-pass = "{{obj.pass_mark}}"
+              data-bs-pass="{{obj.pass_mark}}"
               data-bs-toggle="modal"
-              data-bs-target="#examStartModal"
-              >
+              data-bs-target="#examStartModal">
               Start Exam
             </button>
-        </div>
+          </div>
         </div>
       </div>
     </div>
-  {% endfor %}
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}
