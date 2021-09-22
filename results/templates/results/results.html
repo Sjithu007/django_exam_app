@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} My Results {% endblock title %}
+
+{% block content %}
+<!-- RESULTS.HTML File Starts Here-->
+{% if user.is_authenticated %}
+    <nav class="navbar fixed-top navbar-light bg-white shadow-sm px-5">
+        <div class="container-fluid px-5 py-2">
+            <h3>Exam App</h3>
+            <div class="d-flex">
+                <h6><a class="btn bg-white mx-4" href="{% url 'results'%}">My Results</a></h6>
+                <h6><a class="btn btn-light" href="{% url 'logout'%}">Logout</a></h6>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mt-5 py-5">
+        <h3 class="mt-5">My Results</h3>
+        <div class="py-2">
+            <div class="row">
+                {% for result in results %}
+                <div class="col-sm-4 mt-4">
+                    <div style="border-radius: 12px" class="card p-1 border-light shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">{{result.exam}}</h3>
+                            <div class="card-text">
+                                {% if result.result_status == "Pass" %}
+                                    <b class="lead text-success">{{result.result_status}}</b>
+                                {% else %}
+                                    <b class="lead text-danger">{{result.result_status}}</b>
+                                {% endif %}
+                                <div class="h6 mt-2">
+                                    <h6>Marks: <b>{{result.mark}}</b></h6> 
+                                    <h6>Percentage: <b>{{result.percentage}}%</b></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>You are not authorized to view this page.</p>
+{% endif %}
+<!-- RESULTS.HTML File Starts Here-->
+{% endblock content %}

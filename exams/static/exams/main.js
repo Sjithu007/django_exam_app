@@ -1,11 +1,11 @@
 const modalBtns = [...document.getElementsByClassName('modal-button')]
 const modalBody = document.getElementById('modal-body')
 const startBtn = document.getElementById('start-button')
-
+console.log("dwd",startBtn)
 const url = window.location.href
 
 modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
-
+    /*
     const pk = btn.getAttribute('data-bs-pk')
     const name = btn.getAttribute('data-bs-exam')
     const numQuestions = btn.getAttribute('data-bs-questions')
@@ -24,6 +24,8 @@ modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
             </ul>
         </div>
     `
+    */
+    const pk = btn.getAttribute('data-bs-pk')
     startBtn.addEventListener('click', ()=>{
         window.location.href = url + pk
     })

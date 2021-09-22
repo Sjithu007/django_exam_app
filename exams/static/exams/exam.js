@@ -8,9 +8,9 @@ const timerBox = document.getElementById('timer-box')
 
 const activateTimer = (duration) => {
     if (duration.toString().length < 2) {
-        timerBox.innerHTML = `<b>0${duration}:00</b>`
+        timerBox.innerHTML = `<b>0${duration}:00</b>` /* 01:00 */
     } else {
-        timerBox.innerHTML = `<b>${duration}:00</b>`
+        timerBox.innerHTML = `<b>${duration}:00</b>` /* 15:00 */
     }
 
     let minutes = duration - 1
@@ -35,7 +35,7 @@ const activateTimer = (duration) => {
             displaySeconds = seconds
         }
         if (minutes === 0 && seconds === 0) {
-            timerBox.innerHTML = "<b>00:00</b>"
+            timerBox.innerHTML = ''
             clearInterval(timer)
             alert('Time Over')
             sendData()
@@ -105,7 +105,7 @@ const sendData = () => {
             const results = response.results
             examForm.classList.add('not-visible')
 
-            scoreBox.innerHTML = `<h1 class="h1 lead">${response.passed ? 'Congratulations! ' : 'Sorry :( '}Your result is ${response.score.toFixed(2)}%</h1>`
+            scoreBox.innerHTML = `<h1 class="h1 lead">${response.passed ? 'Congratulations! ' : 'Sorry :( '}Your result is ${response.percentage.toFixed(2)}%</h1>`
 
             results.forEach(res=>{
                 const resDiv = document.createElement("div")

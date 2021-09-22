@@ -9,6 +9,7 @@
 
 {% block content %}
 
+<!-- MAIN.HTML File Starts Here-->
 <!-- Modal -->
 <div class="modal fade" id="examStartModal" tabindex="-1" aria-labelledby="examModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -17,7 +18,19 @@
         <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Start Exam</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-body" id="modal-body">
+        {% for obj in object_list %}
+        <div class="mb-3">Are you sure you want to begin <b>{{obj.exam_name}}</b> exam?</div>
+          <div class="lead text-small">
+            <ul>
+                <li>Number of questions: <b>{{obj.total_questions}}</b></li>
+                <li>Total Marks: <b>{{obj.total_assigned_marks}}</b></li>
+                <li>Pass Mark: <b>{{obj.pass_mark}}</b></li>
+                <li>Duration: <b>{{obj.duration}} minutes</b></li>
+            </ul>
+          </div>
+        {%  endfor %}
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-success" id="start-button">Start Exam</button>
@@ -31,6 +44,7 @@
     <h3>Exam App</h3>
     <div class="d-flex">
       {% if user.is_authenticated %}
+      <h6><a class="btn bg-white mx-4" href="{% url 'results'%}">My Results</a></h6>
       <h6><a class="btn btn-light" href="{% url 'logout'%}">Logout</a></h6>
       {% else %}
       <h6><a class="btn btn-light bg-white mx-3" href="{% url 'register'%}">Register</a></h6>
@@ -77,4 +91,5 @@
     </div>
   </div>
 </div>
+<!-- MAIN.HTML File End Here-->
 {% endblock content %}

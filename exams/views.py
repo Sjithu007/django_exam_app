@@ -17,8 +17,10 @@ def exam_view(request, pk):
 def exam_data_view(request, pk):
     exam = Exam.objects.get(pk=pk)
     questions = []
+    # fetch all question of an exam
     for q in exam.get_questions():
         answers = []
+        # fetch all answer options of a particular question
         for a in q.get_answers():
             answers.append(a.text)
         questions.append({str(q): answers})
@@ -28,7 +30,7 @@ def exam_data_view(request, pk):
     })
 
 def save_exam_view(request, pk):
-    if request.is_ajax():
+    if request.method == 'POST':
         questions = []
         data = request.POST
         data_ = dict(data.lists())
@@ -44,8 +46,9 @@ def save_exam_view(request, pk):
         user = request.user
         exam = Exam.objects.get(pk=pk)
 
-        score = 0
-        multiplier = 100 / exam.total_questions
+        mark = 0
+        multiplier = 100 / exam.total_assigned_marks
+        ratio = exam.total_assigned_marks / exam.total_questions
         results = []
         correct_answer = None
 
@@ -57,7 +60,7 @@ def save_exam_view(request, pk):
                 for a in question_answers:
                     if a_selected == a.text:
                         if a.correct:
-                            score += 1
+                            mark += ratio
                             correct_answer = a.text
                     else:
                         if a.correct:
@@ -67,10 +70,11 @@ def save_exam_view(request, pk):
             else:
                 results.append({str(q): 'not answered'})
             
-        score_ = score * multiplier
-        Result.objects.create(exam=exam, user=user, score=score_)
+        percentage = mark * multiplier
 
-        if score_ >= exam.pass_mark:
-            return JsonResponse({'passed': True, 'score': score_, 'results': results})
+        if mark >= exam.pass_mark:
+            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Pass')
+            return JsonResponse({'passed': True, 'percentage': percentage, 'results': results})
         else:
-            return JsonResponse({'passed': False, 'score': score_, 'results': results})
+            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Fail')
+            return JsonResponse({'passed': False, 'percentage': percentage, 'results': results})
