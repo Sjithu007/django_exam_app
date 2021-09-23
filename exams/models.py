@@ -12,7 +12,7 @@ class Exam(models.Model):
     total_questions = models.PositiveIntegerField(help_text="Total Number of Questions in Exam")
     total_assigned_marks = models.PositiveIntegerField(help_text="Total Assigned Marks")
     pass_mark = models.PositiveIntegerField(help_text="Required Score to Pass Exam")
-    
+
     def __str__(self):
         return f"{self.exam_name}"
 

@@ -5,33 +5,34 @@
 {% block content %}
 <!-- RESULTS.HTML File Starts Here-->
 {% if user.is_authenticated %}
-    <nav class="navbar fixed-top navbar-light bg-white shadow-sm px-5">
-        <div class="container-fluid px-5 py-2">
-            <h3>Exam App</h3>
-            <div class="d-flex">
-                <h6><a class="btn bg-white mx-4" href="{% url 'results'%}">My Results</a></h6>
-                <h6><a class="btn btn-light" href="{% url 'logout'%}">Logout</a></h6>
-            </div>
+<nav class="navbar fixed-top navbar-light bg-white shadow-sm px-5">
+    <div class="container-fluid px-5 py-2">
+        <a href="{% url 'exams:main-view' %}" class="h3 text-dark" style="text-decoration: none;">Exam App</a>
+        <div class="d-flex">
+            <h6><a class="btn btn-light border-0 px-3" href="{% url 'logout'%}">Logout</a></h6>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="mt-5 py-5">
-        <h3 class="mt-5">My Results</h3>
-        <div class="py-2">
-            <div class="row">
+<div class="mt-5 py-5">
+    <h3 class="mt-5">My Results</h3>
+    <div class="py-2">
+        <div class="row">
+            {% if results|length != 0 %}
                 {% for result in results %}
                 <div class="col-sm-4 mt-4">
-                    <div style="border-radius: 12px" class="card p-1 border-light shadow-sm">
+                    <div style="border-radius: 12px" class="card p-1 border border-light bg-white shadow-sm">
                         <div class="card-body">
-                            <h3 class="card-title">{{result.exam}}</h3>
-                            <div class="card-text">
+                            <h3 class="card-title h4">{{result.exam}}</h3>
+                            <small class="fw-light text-muted">Attempt on: {{result.date_and_time}}</small>
+                            <div class="card-text py-2">
                                 {% if result.result_status == "Pass" %}
-                                    <b class="lead text-success">{{result.result_status}}</b>
+                                <b class="h6 text-success">{{result.result_status}}</b>
                                 {% else %}
-                                    <b class="lead text-danger">{{result.result_status}}</b>
+                                <b class="h6 text-danger">{{result.result_status}}</b>
                                 {% endif %}
-                                <div class="h6 mt-2">
-                                    <h6>Marks: <b>{{result.mark}}</b></h6> 
+                                <div class="mt-2">
+                                    <h6>Marks: <b>{{result.mark}} / {{result.exam.total_assigned_marks}}</b></h6>
                                     <h6>Percentage: <b>{{result.percentage}}%</b></h6>
                                 </div>
                             </div>
@@ -39,11 +40,19 @@
                     </div>
                 </div>
                 {% endfor %}
+            {% else %}
+            <div class="d-flex justify-content-center py-5 my-2">
+                <div class="h3 fw-light py-5 text-center">
+                    <p>No Records Found!</p>
+                    <a href="{% url 'exams:main-view' %}" class="btn btn-lg btn-primary shadow-sm mt-2">Take an Exam</a>    
+                </div>
             </div>
+            {% endif %}
         </div>
     </div>
+</div>
 {% else %}
-    <p>You are not authorized to view this page.</p>
+    <p class="text-center mt-5">You are not authorized to view this page.</p>
 {% endif %}
 <!-- RESULTS.HTML File Starts Here-->
 {% endblock content %}

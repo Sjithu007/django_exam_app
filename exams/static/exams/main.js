@@ -1,12 +1,12 @@
 const modalBtns = [...document.getElementsByClassName('modal-button')]
 const modalBody = document.getElementById('modal-body')
 const startBtn = document.getElementById('start-button')
-console.log("dwd",startBtn)
+
 const url = window.location.href
 
-modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
-    /*
-    const pk = btn.getAttribute('data-bs-pk')
+modalBtns.forEach(btn => btn.addEventListener('click', () => {
+
+    const exam_id = btn.getAttribute('data-bs-exam-id')
     const name = btn.getAttribute('data-bs-exam')
     const numQuestions = btn.getAttribute('data-bs-questions')
     const totalMarks = btn.getAttribute('data-bs-marks')
@@ -14,7 +14,7 @@ modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
     const duration = btn.getAttribute('data-bs-duration')
 
     modalBody.innerHTML += `
-        <div class="mb-3">Are you sure you want to begin <b>${name}</b> exam?</div>
+        <div class="h3 fw-light mb-3">Are you sure you want to start the exam?</div>
         <div class="lead text-small">
             <ul>
                 <li>Number of questions: <b>${numQuestions}</b></li>
@@ -24,10 +24,9 @@ modalBtns.forEach(btn => btn.addEventListener('click', ()=>{
             </ul>
         </div>
     `
-    */
-    const pk = btn.getAttribute('data-bs-pk')
-    startBtn.addEventListener('click', ()=>{
-        window.location.href = url + pk
+
+    startBtn.addEventListener('click', () => {
+        window.location.href = url + 'exam/' + exam_id
     })
-    
+
 }))

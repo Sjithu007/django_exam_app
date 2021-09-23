@@ -10,7 +10,7 @@ app_name = 'exams'
 
 urlpatterns = [
     path('', ExamListView.as_view(), name='main-view'),
-    path('<pk>/', exam_view, name='exam-view'),
-    path('<pk>/data/', exam_data_view, name='exam-data-view'),
-    path('<pk>/save/', save_exam_view, name='save-view')
+    path('exam/<exam_id>/', exam_view, name='exam-view'),
+    path('exam/<exam_id>/data/', exam_data_view, name='exam-data-view'),
+    path('exam/<exam_id>/save/', save_exam_view, name='save-view')
 ]

@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'exams',
     'questions',
     'results',
+    #'resultdetails',
     'students',
-    'testapp'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

@@ -11,17 +11,5 @@ class AnswerInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline] 
 
-'''
-class FillInTheBlankAnswerInline(admin.TabularInline):
-    model = FillInTheBlankAnswer
-    max_num=1
-
-class FillInTheBlankQuestionAdmin(admin.ModelAdmin):
-    inlines = [FillInTheBlankAnswerInline] 
-'''
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
-'''
-admin.site.register(FillInTheBlankQuestion, FillInTheBlankQuestionAdmin)
-admin.site.register(FillInTheBlankAnswer)
-'''

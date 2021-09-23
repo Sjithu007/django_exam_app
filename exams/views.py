@@ -10,12 +10,12 @@ class ExamListView(ListView):
     model = Exam 
     template_name = 'exams/main.html'
 
-def exam_view(request, pk):
-    exam = Exam.objects.get(pk=pk)
+def exam_view(request, exam_id):
+    exam = Exam.objects.get(exam_id=exam_id)
     return render(request, 'exams/exam.html', {'obj': exam})
 
-def exam_data_view(request, pk):
-    exam = Exam.objects.get(pk=pk)
+def exam_data_view(request, exam_id):
+    exam = Exam.objects.get(exam_id=exam_id)
     questions = []
     # fetch all question of an exam
     for q in exam.get_questions():
@@ -29,7 +29,7 @@ def exam_data_view(request, pk):
         'duration': exam.duration,
     })
 
-def save_exam_view(request, pk):
+def save_exam_view(request, exam_id):
     if request.method == 'POST':
         questions = []
         data = request.POST
@@ -44,7 +44,7 @@ def save_exam_view(request, pk):
         print(questions)
 
         user = request.user
-        exam = Exam.objects.get(pk=pk)
+        exam = Exam.objects.get(exam_id=exam_id)
 
         mark = 0
         multiplier = 100 / exam.total_assigned_marks
@@ -72,9 +72,10 @@ def save_exam_view(request, pk):
             
         percentage = mark * multiplier
 
+
         if mark >= exam.pass_mark:
-            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Pass')
+            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Pass', results=results)
             return JsonResponse({'passed': True, 'percentage': percentage, 'results': results})
         else:
-            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Fail')
+            Result.objects.create(exam=exam, user=user, mark=mark, percentage=percentage, result_status='Fail', results=results)
             return JsonResponse({'passed': False, 'percentage': percentage, 'results': results})
