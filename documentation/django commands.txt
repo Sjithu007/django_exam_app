@@ -1,6 +1,8 @@
-python manage.py runserver
+django-admin startproject project_name: Creating project
+python manage.py runserver: Running the development sever
+python manage.py startapp appName: Create a new app/ screen for the project 
 python manage.py makemigrations
-python manage.py migrate
+python manage.py migrate: Creates necessary tables in the database based on the installed apps
 
 
 
