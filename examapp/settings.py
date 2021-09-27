@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'exams',
     'questions',
     'results',
-    #'resultdetails',
+    'resultdetails',
     'students',
 ]
 
